@@ -3,6 +3,8 @@ from app.database import engine
 from app.models import user
 from app.routes import auth
 from app.routes import protected
+from app.models import issue
+from app.routes import issues
 
 app = FastAPI(title="CampusMind AI")
 
@@ -12,6 +14,7 @@ user.Base.metadata.create_all(bind=engine)
 # include routes
 app.include_router(auth.router)
 app.include_router(protected.router)
+app.include_router(issues.router)
 
 @app.get("/")
 def home():
