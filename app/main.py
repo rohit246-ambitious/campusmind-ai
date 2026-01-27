@@ -5,6 +5,9 @@ from app.routes import auth
 from app.routes import protected
 from app.models import issue
 from app.routes import issues
+from app.models import category
+from app.routes import categories
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI(title="CampusMind AI")
 
@@ -15,6 +18,9 @@ user.Base.metadata.create_all(bind=engine)
 app.include_router(auth.router)
 app.include_router(protected.router)
 app.include_router(issues.router)
+app.include_router(categories.router)
+
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 @app.get("/")
 def home():
