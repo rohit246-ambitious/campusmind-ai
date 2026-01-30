@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Optional
 
 class IssueCreate(BaseModel):
     title: str
@@ -12,9 +13,13 @@ class IssueResponse(BaseModel):
     title: str
     description: str
     status: str
-    user_id: int
+    category_id: int
+    image_url: Optional[str]
+    latitude: Optional[float]
+    longitude: Optional[float]
 
 class IssueStatusUpdate(BaseModel):
     status: str
 
-
+class Config:
+    orm_mode = True

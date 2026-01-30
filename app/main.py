@@ -8,6 +8,7 @@ from app.routes import issues
 from app.models import category
 from app.routes import categories
 from fastapi.staticfiles import StaticFiles
+from app.routes import dashboard
 
 app = FastAPI(title="CampusMind AI")
 
@@ -19,6 +20,7 @@ app.include_router(auth.router)
 app.include_router(protected.router)
 app.include_router(issues.router)
 app.include_router(categories.router)
+app.include_router(dashboard.router)
 
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
