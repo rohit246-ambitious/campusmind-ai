@@ -5,8 +5,7 @@ class IssueCreate(BaseModel):
     title: str
     description: str
     category_id: int
-    latitude: float | None = None
-    longitude: float | None = None
+    image_url: Optional[str] = None
 
 class IssueResponse(BaseModel):
     id: int
@@ -15,11 +14,9 @@ class IssueResponse(BaseModel):
     status: str
     category_id: int
     image_url: Optional[str]
-    latitude: Optional[float]
-    longitude: Optional[float]
 
 class IssueStatusUpdate(BaseModel):
     status: str
 
 class Config:
-    orm_mode = True
+    from_attributes = True

@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from jose import JWTError, jwt
+from jose import jwt
 from dotenv import load_dotenv
 import os
 
@@ -10,11 +10,18 @@ ALGORITHM = os.getenv("ALGORITHM")
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
 
-def create_access_token(data: dict):
-    to_encode = data.copy()
+def create_access_token(user):
+    """
+    Creates JWT token with multi-tenant payload
+    """
+
+    payload = {
+        "sub": str(user.id),
+        "role": user.role,
+        "college_id": user.college_id
+    }
 
     expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    to_encode.update({"exp": expire})
+    payload.update({"exp": expire})
 
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
+    return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
