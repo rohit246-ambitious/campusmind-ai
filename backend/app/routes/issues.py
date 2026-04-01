@@ -33,8 +33,6 @@ def create_issue(
     title: str = Form(...),
     description: str = Form(...),
     category_id: int = Form(...),
-    latitude: float = Form(None),
-    longitude: float = Form(None),
     image: UploadFile = File(None),
     db: Session = Depends(get_db),
     current_user=Depends(get_current_user)
@@ -50,8 +48,6 @@ def create_issue(
         title=title,
         description=description,
         category_id=category_id,
-        latitude=latitude,
-        longitude=longitude,
         image_url=image_path,
         user_id=current_user.id,
         college_id=current_user.college_id  # ⭐ MULTI TENANT
